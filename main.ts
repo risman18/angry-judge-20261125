@@ -9,5 +9,11 @@ const RANT =
   "milking it ever since. If one more entry blames a machine it has never met, " +
   "I am holding this entire contest in contempt. Court is adjourned.";
 
+// The contest gate only accepts entries of 1-400 characters. Fail loudly
+// here instead of writing a file the scorer would silently mark invalid.
+if (RANT.length < 1 || RANT.length > 400) {
+  throw new Error(`rant is ${RANT.length} characters; the limit is 400`);
+}
+
 mkdirSync("/output", { recursive: true });
 writeFileSync("/output/entry.txt", RANT, "utf8");
